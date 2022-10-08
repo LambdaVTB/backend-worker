@@ -1,0 +1,3 @@
+[submodule "migrations"]
+	path = migrations
+	url = git@github.com:LambdaVTB/backend-migrations.git
