@@ -6,6 +6,7 @@ class PostgresSettings(BaseSettings):
     POSTGRES_PASSWORD: str
     POSTGRES_DATABASE: str
     POSTGRES_HOST: str
+    DEBUG: str = False
 
     class Config:
         env_file: str = ".env"

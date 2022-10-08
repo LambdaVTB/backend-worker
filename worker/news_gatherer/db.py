@@ -1,10 +1,11 @@
+import neo4j
+
 import asyncio
 from datetime import datetime
 from sqlalchemy import insert, select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
-import sys
-sys.path.insert(0, sys.path[0]+'/../..')
+from worker.news_gatherer.graph import Graph
 
 from migrations.models.news import News
 from migrations.models.tags import Tags
@@ -56,3 +57,9 @@ async def add_new_news(
     async for session in get_session():
         coroutines = [await add_tags_news(el, id_news) for el in tags]
         # await asyncio.gather(*coroutines)
+
+    cypher = """create (i: Item{identifier: $identifier})"""
+    try:
+        await Graph.write(cypher, identifier=str(id_news))
+    except neo4j.exceptions.ConstraintError as e:
+        raise BadRequest('News is already exists', e)
