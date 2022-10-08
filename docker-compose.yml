@@ -1,0 +1,39 @@
+version: "3.7"
+
+services:
+  parser:
+    container_name: "parser"
+    build:
+      context: .
+      dockerfile: ./dockerfiles/parser/Dockerfile
+    volumes:
+      - .:/code1
+    ports:
+      - "${FASTAPI_PORT}:${FASTAPI_PORT}"
+    env_file:
+      - .env
+    restart: always
+  generator:
+    container_name: "generator"
+    build:
+      context: .
+      dockerfile: ./dockerfiles/generator/Dockerfile
+    volumes:
+      - .:/code2
+    ports:
+      - "${FASTAPI_PORT}:${FASTAPI_PORT}"
+    env_file:
+      - .env
+    restart: always
+  gatherer:
+    container_name: "gatherer"
+    build:
+      context: .
+      dockerfile: ./dockerfiles/gatherer/Dockerfile
+    volumes:
+      - .:/code3
+    ports:
+      - "${FASTAPI_PORT}:${FASTAPI_PORT}"
+    env_file:
+      - .env
+    restart: always
