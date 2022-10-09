@@ -69,6 +69,7 @@ async def add_new_news(
     async for session in get_session():
         query = insert(News).values(
             title = title,
+            source = url,
             news_type = NewsTypes.DIGEST,
             created_at = created_at,
             original = str(id_raw)

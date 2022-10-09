@@ -1,0 +1,10 @@
+version: "3.2"
+services:
+  test-database:
+    image: postgres
+    environment:
+      - POSTGRES_DB=test_db
+      - POSTGRES_USER=student
+      - POSTGRES_PASSWORD=shbr2022
+    ports:
+      - "5432:5432"
